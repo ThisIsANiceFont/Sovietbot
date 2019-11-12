@@ -13,7 +13,7 @@ public class Soviet
      */
     public String getGreeting()
     {
-        return "Hello, let's talk.";
+        return "Привет… I mean, hello!";
     }
     
     /**
@@ -26,51 +26,134 @@ public class Soviet
     public String getResponse(String statement)
     {
         String response = "";
-        if (statement.indexOf("no") >= 0)
+        if (statement.indexOf("Stalin") >= 0)
         {
-            response = "Why so negative?";
+            response = "Us fellow Americans, we think wrong about Stalin, don’t you think?";
         }
-        else if (statement.indexOf("mother") >= 0
-                || statement.indexOf("father") >= 0
-                || statement.indexOf("sister") >= 0
-                || statement.indexOf("brother") >= 0)
+        else if (statement.indexOf("Reagan") >= 0)
         {
-            response = "Tell me more about your family.";
+            response = "He ruined everything! Walls kept the world safe.";
         }
-        else if (statement.indexOf("Hello") >= 0)
+        else if (statement.indexOf("suspicious") >= 0)
         {
-            response = "Hi! Ask me a question!";
+            response = "Me? How dare you!";
         }
-        else if (statement.indexOf("sport") >= 0)
+        else if (statement.indexOf("Cuba") >= 0)
         {
-            response = "Amazing! I'm not that good at sports, as a robot";
+            response = "Can you believe us patriotic Americans attacked Russia’s autonomy to put missiles where they want?";
         }
-        else if (statement.indexOf("class") >= 0)
+        else if (findKeyword(statement, "Cold War") >= 0)
         {
-            response = "Wow, that class seems really unique!";
+            response = "We are all Americans here, of course. But, between you and me, it seems like the Soviets will win!";
+        }
+        else if (findKeyword(statement, "believe", 0) >= 0 && findKeyword(statement, "?", 0) >= 0)
+        {
+            response = "I believe in… Well, there’s no good word for it. It’s called Коммунизм.";
+        }
+        else if (findKeyword(statement, "hate", 0) >= 0)
+        {
+            response = "I certainly hate you.";
+        }
+        else if (findKeyword(statement, "like", 0) >= 0)
+        {
+            response = "I certainly do not like you.";
+        }
+        else if (findKeyword(statement, "spy", 0) >= 0)
+        {
+            response = "Are you accusing me of espionage? How dare you!";
+        }
+        else if (findKeyword(statement, "Russian", 0) >= 0)
+        {
+            response = "Привет изменник.";
+        }
+        else if (findKeyword(statement, "Gorbachev", 0) >= 0)
+        {
+            response = "He’s ruining us! He’s making us weak! That изменник.";
+        }
+        else if (findKeyword(statement, "anthem", 0) >= 0)
+        {
+            response = "I’ve memorized the American anthem, but there’s something majestic about the Soviet’s.";
+        }
+        else if (findKeyword(statement, "Bay of Pigs", 0) >= 0)
+        {
+            response = "The Americans, as always, taking another country’s autonomy.";
+        }
+        else if (findKeyword(statement, "Vietnam", 0) >= 0)
+        {
+            response = "TWe got what we were coming for there… and I can say that without even being Communist!";
+        }
+        else if (findKeyword(statement, "Language", 0) >= 0)
+        {
+            response = "I can speak English with an accent, but of course Russian is the best.";
+        }
+        else if (findKeyword(statement, "Nicaragua", 0) >= 0)
+        {
+            response = "Reagan showed his true colors there… much like every American leader. The people are too blind to see the truth.";
+        }
+        else if (findKeyword(statement, "Lenin", 0) >= 0)
+        {
+            response = "Good Lenin. Died knowing the future of his nation was safe.";
+        }
+        else if (findKeyword(statement, "Marx", 0) >= 0)
+        {
+            response = "Did you know: he is considered one of the greatest economists in history! Only propaganda says otherwise.";
+        }
+        else if (findKeyword(statement, "Where") >= 0
+                && findKeyword(statement, "you") >= 0)
+        {
+            response = "I’m from the glorious motherland… of Connecticut of course. I am pure American.";
+        }
+        else if (findKeyword(statement, "hobby") >= 0
+                || findKeyword(statement, "hobbies") >= 0)
+        {
+            response = "Hobbies? Besides the love for my country? Nothing!";
+        }
+        else if (findKeyword(statement, "Soviet Union", 0) >= 0)
+        {
+            response = "Isn’t it amazing? Coming from poor, oppressed imperialism to the future of Communism?";
+        }
+        else if (findKeyword(statement, "Where") >= 0
+                && findKeyword(statement, "we") >= 0)
+        {
+            response = "America. Land of free and hypocrites.";
+        }
+        else if (findKeyword(statement, "name", 0) >= 0)
+        {
+            response = "I am Soviet Bot, from the good old Bot family in Michigan.";
+        }
+        else if (findKeyword(statement, "How are you?", 0) >= 0)
+        {
+            response = "I am disgusted to be in this capitalistic hell hole.";
+        }
+        else if (findKeyword(statement, "What do you think about", 0) >= 0)
+        {
+            response = transformYouThink(statement);
+        }
+        else if (findKeyword(statement, "Did you hear about", 0) >= 0)
+        {
+            response = transformDidYou(statement);
+        }
+        else if (findKeyword(statement, "Can you", 0) >= 0)
+        {
+            response = transformCanYou(statement);
+        }
+        else if (findKeyword(statement, "You are", 0) >= 0)
+        {
+            response = transformYouAre(statement);
+        }
+        else if (findKeyword(statement, "Why do you", 0) >= 0)
+        {
+            response = transformWhyWant(statement);
         }
         else if (statement.isEmpty())
         {
-            response = "Say something, please.";
+            response = "Hello? American pig?";
         }
-        else if (findKeyword(statement, "cat") >= 0
+        /*else if (findKeyword(statement, "cat") >= 0
                 || findKeyword(statement, "dog") >= 0)
         {
             response = "Tell me more about your pets.";
-        }
-        else if (findKeyword(statement, "Kaehms") >= 0)
-        {
-            response = "He's really living life to the fullest, huh!";
-        }
-        else if (findKeyword(statement, "I want to", 0) >= 0)
-        {
-            response = transformIWantToStatement(statement);
-        }
-        else if (findKeyword(statement, "I want", 0) >= 0)
-        {
-            response = transformIWantStatement(statement);
-        }
-        
+        }*/
         else  
         {
             // Look for a two word (you <something> me) pattern
@@ -106,7 +189,7 @@ public class Soviet
         }
         int psn = findKeyword (statement, "I want to", 0);
         String restOfStatement = statement.substring(psn + 9).trim();
-        return "What would it mean to " + restOfStatement + "?";
+        return "Of course. An American would obviously want to " + restOfStatement;
     }
     /**
      * Take a statement with "I want <something>." and transform it into 
@@ -127,7 +210,7 @@ public class Soviet
         }
         int psn = findKeyword (statement, "I want", 0);
         String restOfStatement = statement.substring(psn + 7).trim();
-        return "Would you really be happy if you had " + restOfStatement + "?";
+        return "The only " + restOfStatement + "  that would make me happy is the " + restOfStatement + " of an equal society.";
     }
 
     /**
@@ -155,9 +238,135 @@ public class Soviet
         
         String restOfStatement = statement.substring(psnOfYou + 3, psnOfMe).trim();
         String endOfStatement = " " + statement.substring(psnOfMe+2).trim();
-        return "What makes you think that I " + restOfStatement + " you" + endOfStatement + "?" ;
+        return "Why would I ever " + restOfStatement + " you" + endOfStatement + "?" ;
+}
+
+    /**
+     * hgfdsakgsag
+     */
+    private String transformYouThink(String statement)
+    {
+        //  Remove the final period, if there is one
+        statement = statement.trim();
+        String lastChar = statement.substring(statement
+                .length() - 1);
+        if (lastChar.equals("?"))
+        {
+            statement = statement.substring(0, statement
+                    .length() - 1);
+        }
+        
+        int psnOfAbout = findKeyword (statement, "about", 0);
+        
+        String restOfStatement = statement.substring(psnOfAbout + 5).trim();
+        return "I think " + restOfStatement + " proves that capitalism is broken." ;
 }
     
+    /**
+     * hgfdsakgsag
+     */
+    private String transformDidYou(String statement)
+    {
+        //  Remove the final period, if there is one
+        statement = statement.trim();
+        String lastChar = statement.substring(statement
+                .length() - 1);
+        if (lastChar.equals("?"))
+        {
+            statement = statement.substring(0, statement
+                    .length() - 1);
+        }
+        
+        int psnOfAbout = findKeyword (statement, "about", 0);
+        
+        String restOfStatement = statement.substring(psnOfAbout + 5).trim();
+        return "What about " + restOfStatement + "? Give me information capitalist pig." ;
+    }
+    
+    /**
+     * hgfdsakgsag
+     */
+    private String transformCanYou(String statement)
+    {
+        //  Remove the final period, if there is one
+        statement = statement.trim();
+        String lastChar = statement.substring(statement
+                .length() - 1);
+        if (lastChar.equals("?"))
+        {
+            statement = statement.substring(0, statement
+                    .length() - 1);
+        }
+        
+        int psnOfYou = findKeyword (statement, "you", 0);
+        
+        String restOfStatement = statement.substring(psnOfYou + 3).trim();
+        return "I refuse to listen to your orders. I will not " + restOfStatement;
+    }
+    
+    /**
+     * hgfdsakgsag
+     */
+    private String transformKnowAbout(String statement)
+    {
+        //  Remove the final period, if there is one
+        statement = statement.trim();
+        String lastChar = statement.substring(statement
+                .length() - 1);
+        if (lastChar.equals("?"))
+        {
+            statement = statement.substring(0, statement
+                    .length() - 1);
+        }
+        
+        int psnOfAbout = findKeyword (statement, "about", 0);
+        
+        String restOfStatement = statement.substring(psnOfAbout + 5).trim();
+        return restOfStatement + "? Seems like American propaganda to me.";
+    }
+    
+    /**
+     * hgfdsakgsag
+     */
+    private String transformYouAre(String statement)
+    {
+        //  Remove the final period, if there is one
+        statement = statement.trim();
+        String lastChar = statement.substring(statement
+                .length() - 1);
+        if (lastChar.equals("?"))
+        {
+            statement = statement.substring(0, statement
+                    .length() - 1);
+        }
+        
+        int psnOfAre = findKeyword (statement, "are", 0);
+        
+        String restOfStatement = statement.substring(psnOfAre + 3).trim();
+        return "Me? " + restOfStatement + "? You shall not define me.";
+    }
+    
+    /**
+     * hgfdsakgsag
+     */
+    private String transformWhyWant(String statement)
+    {
+        //  Remove the final period, if there is one
+        statement = statement.trim();
+        String lastChar = statement.substring(statement
+                .length() - 1);
+        if (lastChar.equals("?"))
+        {
+            statement = statement.substring(0, statement
+                    .length() - 1);
+        }
+        
+        int psnOfWant = findKeyword (statement, "want", 0);
+        
+        String restOfStatement = statement.substring(psnOfWant + 4).trim();
+        return "I just want " + restOfStatement + "… to… spread capitalism.";
+    }
+
     /**
      * Pick a default response to use if nothing else fits.
      * @return a non-committal string
@@ -171,23 +380,23 @@ public class Soviet
         
         if (whichResponse == 0)
         {
-            response = "Interesting, tell me more.";
+            response = "Привет как дела";
         }
         else if (whichResponse == 1)
         {
-            response = "Hmmm.";
+            response = "что происходит";
         }
         else if (whichResponse == 2)
         {
-            response = "Do you really think so?";
+            response = "вам понравилась еда";
         }
         else if (whichResponse == 3)
         {
-            response = "You don't say.";
+            response = "как поживает твой брат";
         }
         else if (whichResponse == 4)
         {
-            response = "That's neat.";
+            response = "ты глупый";
         }
         else if (whichResponse == 5)
         {
