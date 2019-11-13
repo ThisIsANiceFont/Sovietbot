@@ -1,9 +1,12 @@
 
 /**
- * Write a description of class Soviet here.
+ * Sovietbot is a chatbot who is a very bad Soviet spy in the early 1990s, 
+ * who hasn’t realized that the Soviet Union split up yet. This class defines
+ * all of it's greetings, responses, and special responses using its special
+ * methods. Based off the Magpie Activity in CSA.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Gene Pan, Rupali Sarathy
+ * @version 1.0
  */
 public class Soviet
 {
@@ -26,7 +29,16 @@ public class Soviet
     public String getResponse(String statement)
     {
         String response = "";
-        if (statement.indexOf("Stalin") >= 0)
+        //hello responses
+        if (findKeyword(statement, "Hello") >= 0
+                || findKeyword(statement, "Hi") >= 0
+                || findKeyword(statement, "Hey") >= 0
+                || findKeyword(statement, "What's up") >= 0)
+        {
+            response = "До́брое у́тро. Tell me information capitalist";
+        }
+        //contains this keyword, then say this responses
+        else if (statement.indexOf("Stalin") >= 0)
         {
             response = "Us fellow Americans, we think wrong about Stalin, don’t you think?";
         }
@@ -125,6 +137,7 @@ public class Soviet
         {
             response = "I am disgusted to be in this capitalistic hell hole.";
         }
+        //Method responses
         else if (findKeyword(statement, "What do you think about", 0) >= 0)
         {
             response = transformYouThink(statement);
@@ -145,15 +158,23 @@ public class Soviet
         {
             response = transformWhyWant(statement);
         }
+        else if (findKeyword(statement, "Do you know about", 0) >= 0)
+        {
+            response = transformKnowAbout(statement);
+        }
+        else if (findKeyword(statement, "I want to", 0) >= 0)
+        {
+            response = transformIWantTo(statement);
+        }
+        else if (findKeyword(statement, "I want", 0) >= 0)
+        {
+            response = transformIWant(statement);
+        }
         else if (statement.isEmpty())
         {
             response = "Hello? American pig?";
         }
-        /*else if (findKeyword(statement, "cat") >= 0
-                || findKeyword(statement, "dog") >= 0)
-        {
-            response = "Tell me more about your pets.";
-        }*/
+        //Final check for pattern, random response for unknowns
         else  
         {
             // Look for a two word (you <something> me) pattern
@@ -171,12 +192,14 @@ public class Soviet
     }
 
     /**
+     * 
      * Take a statement with "I want to <something>." and transform it into 
      * "What would it mean to <something>?"
      * @param statement the user statement, assumed to contain "I want to"
      * @return the transformed statement
+     * 
      */
-    private String transformIWantToStatement(String statement)
+    public String transformIWantTo(String statement)
     {
         //  Remove the final period, if there is one
         statement = statement.trim();
@@ -197,7 +220,7 @@ public class Soviet
      * @param statement the user statement, assumed to contain "I want to"
      * @return the transformed statement
      */
-    private String transformIWantStatement(String statement)
+    public String transformIWant(String statement)
     {
         //  Remove the final period, if there is one
         statement = statement.trim();
@@ -210,7 +233,7 @@ public class Soviet
         }
         int psn = findKeyword (statement, "I want", 0);
         String restOfStatement = statement.substring(psn + 7).trim();
-        return "The only " + restOfStatement + "  that would make me happy is the " + restOfStatement + " of an equal society.";
+        return "The only " + restOfStatement + " that would make me happy is the " + restOfStatement + " of an equal society.";
     }
 
     /**
@@ -221,7 +244,7 @@ public class Soviet
      * @param statement the user statement, assumed to contain "you" followed by "me"
      * @return the transformed statement
      */
-    private String transformYouMeStatement(String statement)
+    public String transformYouMeStatement(String statement)
     {
         //  Remove the final period, if there is one
         statement = statement.trim();
@@ -242,9 +265,10 @@ public class Soviet
 }
 
     /**
-     * hgfdsakgsag
+     * Transforms the user statement “What do you think about (something)?” 
+     * and makes it “Me? (something)? You shall not define me.”
      */
-    private String transformYouThink(String statement)
+    public String transformYouThink(String statement)
     {
         //  Remove the final period, if there is one
         statement = statement.trim();
@@ -263,9 +287,10 @@ public class Soviet
 }
     
     /**
-     * hgfdsakgsag
+     * Parses for the user statement “Did you hear about (something)?” and responds with 
+     * “What about it? Give me information capitalist pig.”
      */
-    private String transformDidYou(String statement)
+    public String transformDidYou(String statement)
     {
         //  Remove the final period, if there is one
         statement = statement.trim();
@@ -284,9 +309,10 @@ public class Soviet
     }
     
     /**
-     * hgfdsakgsag
+     * Transforms the user statement “Can you (something)?” and makes it 
+     * “I refuse to listen to your orders. I will not (something).”
      */
-    private String transformCanYou(String statement)
+    public String transformCanYou(String statement)
     {
         //  Remove the final period, if there is one
         statement = statement.trim();
@@ -305,9 +331,10 @@ public class Soviet
     }
     
     /**
-     * hgfdsakgsag
+     * Transforms the user statement “Do you know about (something)?” and makes it 
+     * “(Something)? Seems like American propaganda to me. shall not define me.” Capitalizes the Something.
      */
-    private String transformKnowAbout(String statement)
+    public String transformKnowAbout(String statement)
     {
         //  Remove the final period, if there is one
         statement = statement.trim();
@@ -322,19 +349,21 @@ public class Soviet
         int psnOfAbout = findKeyword (statement, "about", 0);
         
         String restOfStatement = statement.substring(psnOfAbout + 5).trim();
+        restOfStatement = restOfStatement.substring(0, 1).toUpperCase() + restOfStatement.substring(1);
         return restOfStatement + "? Seems like American propaganda to me.";
     }
     
     /**
-     * hgfdsakgsag
+     * Transforms the user statement “You are (something).” and makes it 
+     * “Me? (something)? You shall not define me.” Capitalizes the something.
      */
-    private String transformYouAre(String statement)
+    public String transformYouAre(String statement)
     {
         //  Remove the final period, if there is one
         statement = statement.trim();
         String lastChar = statement.substring(statement
                 .length() - 1);
-        if (lastChar.equals("?"))
+        if (lastChar.equals("."))
         {
             statement = statement.substring(0, statement
                     .length() - 1);
@@ -343,13 +372,15 @@ public class Soviet
         int psnOfAre = findKeyword (statement, "are", 0);
         
         String restOfStatement = statement.substring(psnOfAre + 3).trim();
+        restOfStatement = restOfStatement.substring(0, 1).toUpperCase() + restOfStatement.substring(1);
         return "Me? " + restOfStatement + "? You shall not define me.";
     }
     
     /**
-     * hgfdsakgsag
+     * Parses for the user statement “Why do you want (something)?” and responds with 
+     * “I just want information… to… spread capitalism.”
      */
-    private String transformWhyWant(String statement)
+    public String transformWhyWant(String statement)
     {
         //  Remove the final period, if there is one
         statement = statement.trim();
@@ -371,7 +402,7 @@ public class Soviet
      * Pick a default response to use if nothing else fits.
      * @return a non-committal string
      */
-    private String getRandomResponse()
+    public String getRandomResponse()
     {
         final int NUMBER_OF_RESPONSES = 6;
         double r = Math.random();
@@ -422,7 +453,7 @@ public class Soviet
      * @return the index of the first occurrence of goal in
      *         statement or -1 if it's not found
      */
-    private int findKeyword(String statement, String goal,
+    public int findKeyword(String statement, String goal,
     int startPos)
     {
         String phrase = statement.trim();
@@ -486,7 +517,7 @@ public class Soviet
      * @return the index of the first occurrence of goal in
      *         statement or -1 if it's not found
      */
-    private int findKeyword(String statement, String goal)
+    public int findKeyword(String statement, String goal)
     {
         return findKeyword(statement, goal, 0);
     }
